@@ -1,0 +1,51 @@
+{
+	"info": {
+		"_postman_id": "ab4b60d8-59b0-418c-a1b7-9c9447d77ba1",
+		"name": "Movie Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "25422330-ab4b60d8-59b0-418c-a1b7-9c9447d77ba1"
+	},
+	"item": [],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "808303df-11a2-4216-b68b-f5905906b326",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "1ce32f9d-078d-4fa0-a1b5-36bbd4e55909",
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "8b6780c2-880b-4f44-9688-e91ab47d5b88",
+			"key": "endpoint",
+			"value": "https://the-one-api.dev/v2",
+			"type": "string"
+		}
+	]
+}

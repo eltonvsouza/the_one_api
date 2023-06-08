@@ -1,0 +1,240 @@
+{
+	"info": {
+		"_postman_id": "2066b79e-9baf-4281-9781-4e32d13f14a3",
+		"name": "Book Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "25422330-2066b79e-9baf-4281-9781-4e32d13f14a3"
+	},
+	"item": [
+		{
+			"name": "GET Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2be46cff-69ea-475e-8d81-3b6f4235a472",
+						"exec": [
+							"/*\r",
+							" * Check the lenght of docs array\r",
+							" */\r",
+							"pm.test(\"Book list lenght\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(Object.keys(jsonData.docs).length).to.eql(3);\r",
+							"});\r",
+							"\r",
+							"/*\r",
+							" * Check the value of total variable\r",
+							" */\r",
+							"pm.test(\"Book list total variable\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.total).to.eql(3);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "f02d78d1-7814-4919-8218-69b558569b9f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{endpoint}}/book",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"book"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Book by id",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "131559a2-9963-4cc8-9d4d-8625ffa891bb",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e463c4c0-4f5f-4bed-852f-67487b0e9cd9",
+						"exec": [
+							"/*\r",
+							" * Check the book name\r",
+							" */\r",
+							"pm.test(\"Name of the book\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.docs[0].name).to.eql(\"The Fellowship Of The Ring\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "4d1e7153-a0eb-41f1-bec3-e55aa4abe98a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{endpoint}}/book/5cf5805fb53e011a64671582",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"book",
+						"5cf5805fb53e011a64671582"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Book by false id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0eca7b0e-4db4-4211-97c1-ace619bbeb6c",
+						"exec": [
+							"/*\r",
+							" * Check if the success variable is false\r",
+							" */\r",
+							"pm.test(\"Success variable is false\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.success).to.eql(false);\r",
+							"});\r",
+							"\r",
+							"/*\r",
+							" * Check the value of message variable\r",
+							" */\r",
+							"pm.test(\"Message variable\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"Something went wrong.\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "9f9df743-e2e5-4381-98e8-76d3539b0965",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{endpoint}}/book/123",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"book",
+						"123"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Book by false id Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0eca7b0e-4db4-4211-97c1-ace619bbeb6c",
+						"exec": [
+							"/*\r",
+							" * Check the number of chapter\r",
+							" */\r",
+							"pm.test(\"Number of chapter\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.total).to.eql(22);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "5faf9e83-367f-49ab-b748-538aa7ec2d3d",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{endpoint}}/book/5cf5805fb53e011a64671582/chapter",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"book",
+						"5cf5805fb53e011a64671582",
+						"chapter"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "7988bc5c-58a7-407a-a480-08a4e7d5dcdc",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "8911ebb4-e8d7-4e2b-909c-6bd55d6fe67c",
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "8b6780c2-880b-4f44-9688-e91ab47d5b88",
+			"key": "endpoint",
+			"value": "https://the-one-api.dev/v2",
+			"type": "string"
+		}
+	]
+}
