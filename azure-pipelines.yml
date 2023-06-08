@@ -1,0 +1,39 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: Npm@1
+  displayName: 'Installing Newman'
+  inputs:
+    command: 'custom'
+    customCommand: 'install newman -g'
+
+- task: Npm@1
+  displayName: 'Installing Newman Report'
+  inputs:
+    command: 'custom'
+    customCommand: 'install -g newman-reporter-htmlextra'
+
+- task: NewmanPostman@4
+  inputs:
+    collectionSourceType: 'file'
+    collectionFileSource: '$(Build.SourcesDirectory)/postman/collections/Book Collection.json'
+    Contents: '**/*.json'
+    environmentSourceType: 'none'
+    dataFile: '$(Build.SourcesDirectory)/data/the_one_book.csv'
+    numberOfIterations: '3'
+    reporters: 'junit'
+    htmlExtraLogs: true
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/*.xml'

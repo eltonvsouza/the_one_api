@@ -1,0 +1,23 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: |
+    curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+  displayName: 'Install Postman CLI'
+
+- task: CmdLine@2
+  displayName: 'Run automated API tests using Postman CLI'
+  inputs:
+    script: |
+        postman login --with-api-key $(POSTMAN_API_KEY)
+        # Run your collection using Postman CLI
+        postman collection run "$(Build.SourcesDirectory)/postman/collections/Book Collection.json" --integration-id "133603-$(Build.BuildId)"
